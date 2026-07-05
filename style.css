@@ -1,0 +1,591 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2870
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 * \{\
+  margin: 0;\
+  padding: 0;\
+  box-sizing: border-box;\
+\}\
+\
+html \{\
+  scroll-behavior: smooth;\
+\}\
+\
+body \{\
+  font-family: 'Montserrat', sans-serif;\
+  background: linear-gradient(160deg, #fff5f2 0%, #ffe9ec 45%, #ffe0e6 100%);\
+  color: #5c2a3a;\
+  overflow-x: hidden;\
+  min-height: 100vh;\
+\}\
+\
+/* ---------- GATEKEEPER SCREEN ---------- */\
+\
+.gatekeeper-screen \{\
+  position: fixed;\
+  inset: 0;\
+  z-index: 999;\
+  display: flex;\
+  align-items: center;\
+  justify-content: center;\
+  background: linear-gradient(135deg, #7a2438 0%, #a83a52 45%, #d46a7e 100%);\
+  overflow: hidden;\
+  transition: opacity 0.9s ease, visibility 0.9s ease;\
+\}\
+\
+.gatekeeper-screen.fade-out \{\
+  opacity: 0;\
+  visibility: hidden;\
+  pointer-events: none;\
+\}\
+\
+.gatekeeper-hearts \{\
+  position: absolute;\
+  inset: 0;\
+  pointer-events: none;\
+  z-index: 1;\
+\}\
+\
+.gatekeeper-box \{\
+  position: relative;\
+  z-index: 2;\
+  background: rgba(255, 255, 255, 0.1);\
+  backdrop-filter: blur(14px);\
+  -webkit-backdrop-filter: blur(14px);\
+  border: 1px solid rgba(255, 255, 255, 0.25);\
+  border-radius: 24px;\
+  padding: 3rem 2.5rem;\
+  width: 90%;\
+  max-width: 440px;\
+  text-align: center;\
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);\
+  animation: floatUp 0.8s ease;\
+\}\
+\
+@keyframes floatUp \{\
+  from \{\
+    opacity: 0;\
+    transform: translateY(30px);\
+  \}\
+  to \{\
+    opacity: 1;\
+    transform: translateY(0);\
+  \}\
+\}\
+\
+.gatekeeper-icon \{\
+  font-size: 2.5rem;\
+  margin-bottom: 0.5rem;\
+\}\
+\
+.gatekeeper-title \{\
+  font-family: 'Great Vibes', cursive;\
+  font-size: 2.8rem;\
+  color: #ffffff;\
+  margin-bottom: 0.5rem;\
+  line-height: 1.2;\
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);\
+\}\
+\
+.gatekeeper-subtitle \{\
+  font-size: 0.95rem;\
+  color: #ffe3e9;\
+  margin-bottom: 1.8rem;\
+  letter-spacing: 0.3px;\
+\}\
+\
+#gateForm \{\
+  display: flex;\
+  flex-direction: column;\
+  gap: 1rem;\
+\}\
+\
+#nameInput \{\
+  padding: 0.9rem 1.2rem;\
+  border-radius: 50px;\
+  border: none;\
+  outline: none;\
+  font-family: 'Montserrat', sans-serif;\
+  font-size: 1rem;\
+  text-align: center;\
+  background: rgba(255, 255, 255, 0.9);\
+  color: #5c2a3a;\
+  transition: box-shadow 0.3s ease, transform 0.2s ease;\
+\}\
+\
+#nameInput::placeholder \{\
+  color: #b98a94;\
+\}\
+\
+#nameInput:focus \{\
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.4);\
+  transform: scale(1.02);\
+\}\
+\
+#gateForm button \{\
+  padding: 0.9rem 1.2rem;\
+  border-radius: 50px;\
+  border: none;\
+  outline: none;\
+  cursor: pointer;\
+  font-family: 'Montserrat', sans-serif;\
+  font-weight: 600;\
+  font-size: 0.95rem;\
+  letter-spacing: 0.4px;\
+  background: #ffffff;\
+  color: #a83a52;\
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;\
+\}\
+\
+#gateForm button:hover \{\
+  background: #ffe0e6;\
+  transform: translateY(-2px);\
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);\
+\}\
+\
+#gateForm button:active \{\
+  transform: translateY(0);\
+\}\
+\
+.error-message \{\
+  margin-top: 1.2rem;\
+  color: #ffe3e9;\
+  font-size: 0.85rem;\
+  min-height: 1.2rem;\
+  font-weight: 500;\
+\}\
+\
+.shake \{\
+  animation: shakeError 0.5s ease;\
+\}\
+\
+@keyframes shakeError \{\
+  0%, 100% \{ transform: translateX(0); \}\
+  20% \{ transform: translateX(-8px); \}\
+  40% \{ transform: translateX(8px); \}\
+  60% \{ transform: translateX(-6px); \}\
+  80% \{ transform: translateX(6px); \}\
+\}\
+\
+/* ---------- MAIN CONTENT ---------- */\
+\
+.main-content \{\
+  position: relative;\
+  opacity: 0;\
+  transition: opacity 1s ease;\
+\}\
+\
+.main-content.visible \{\
+  opacity: 1;\
+\}\
+\
+.main-content.hidden \{\
+  display: none;\
+\}\
+\
+.hearts-background \{\
+  position: fixed;\
+  inset: 0;\
+  overflow: hidden;\
+  pointer-events: none;\
+  z-index: 0;\
+\}\
+\
+.floating-heart \{\
+  position: absolute;\
+  bottom: -10%;\
+  color: #d46a7e;\
+  animation-name: floatHeart;\
+  animation-timing-function: ease-in;\
+  animation-iteration-count: 1;\
+  will-change: transform, opacity;\
+\}\
+\
+@keyframes floatHeart \{\
+  0% \{\
+    transform: translateY(0) translateX(0) rotate(0deg);\
+    opacity: 0;\
+  \}\
+  10% \{\
+    opacity: 0.8;\
+  \}\
+  50% \{\
+    transform: translateY(-55vh) translateX(20px) rotate(15deg);\
+  \}\
+  90% \{\
+    opacity: 0.6;\
+  \}\
+  100% \{\
+    transform: translateY(-110vh) translateX(-15px) rotate(-10deg);\
+    opacity: 0;\
+  \}\
+\}\
+\
+/* ---------- HERO HEADER ---------- */\
+\
+.hero-header \{\
+  position: relative;\
+  z-index: 2;\
+  text-align: center;\
+  padding: 6rem 1.5rem 4rem;\
+\}\
+\
+.hero-eyebrow \{\
+  font-size: 0.9rem;\
+  letter-spacing: 3px;\
+  text-transform: uppercase;\
+  color: #a83a52;\
+  font-weight: 600;\
+  margin-bottom: 0.8rem;\
+\}\
+\
+.hero-title \{\
+  font-family: 'Great Vibes', cursive;\
+  font-size: 5rem;\
+  color: #7a2438;\
+  line-height: 1.1;\
+  margin-bottom: 0.5rem;\
+  text-shadow: 0 4px 20px rgba(122, 36, 56, 0.15);\
+\}\
+\
+.hero-script \{\
+  font-family: 'Dancing Script', cursive;\
+  font-size: 1.5rem;\
+  color: #a83a52;\
+  margin-bottom: 2rem;\
+\}\
+\
+.hero-years \{\
+  display: flex;\
+  align-items: center;\
+  justify-content: center;\
+  gap: 1rem;\
+  font-family: 'Montserrat', sans-serif;\
+  font-weight: 600;\
+  font-size: 1.1rem;\
+  color: #7a2438;\
+\}\
+\
+.hero-line \{\
+  width: 60px;\
+  height: 2px;\
+  background: linear-gradient(90deg, #d46a7e, #a83a52);\
+  border-radius: 2px;\
+\}\
+\
+/* ---------- TIMELINE SECTION ---------- */\
+\
+.timeline-section \{\
+  position: relative;\
+  z-index: 2;\
+  padding: 2rem 1.5rem 5rem;\
+  max-width: 1100px;\
+  margin: 0 auto;\
+\}\
+\
+.section-title \{\
+  font-family: 'Great Vibes', cursive;\
+  font-size: 3rem;\
+  text-align: center;\
+  color: #7a2438;\
+  margin-bottom: 0.4rem;\
+\}\
+\
+.section-subtitle \{\
+  text-align: center;\
+  color: #a5677a;\
+  font-size: 0.95rem;\
+  margin-bottom: 3.5rem;\
+  font-weight: 400;\
+\}\
+\
+.timeline \{\
+  position: relative;\
+  padding: 1rem 0;\
+\}\
+\
+.timeline::before \{\
+  content: '';\
+  position: absolute;\
+  top: 0;\
+  bottom: 0;\
+  left: 50%;\
+  width: 3px;\
+  background: linear-gradient(180deg, #f3b6c2, #d46a7e, #f3b6c2);\
+  transform: translateX(-50%);\
+  border-radius: 3px;\
+\}\
+\
+.timeline-item \{\
+  position: relative;\
+  width: 50%;\
+  padding: 0 3rem 4rem;\
+  opacity: 0;\
+  transform: translateY(40px);\
+  transition: opacity 0.8s ease, transform 0.8s ease;\
+\}\
+\
+.timeline-item.in-view \{\
+  opacity: 1;\
+  transform: translateY(0);\
+\}\
+\
+.timeline-item:nth-child(odd) \{\
+  left: 0;\
+  text-align: right;\
+\}\
+\
+.timeline-item:nth-child(even) \{\
+  left: 50%;\
+  text-align: left;\
+\}\
+\
+.timeline-item::after \{\
+  content: '';\
+  position: absolute;\
+  top: 0.4rem;\
+  width: 18px;\
+  height: 18px;\
+  background: #ffffff;\
+  border: 4px solid #d46a7e;\
+  border-radius: 50%;\
+  z-index: 3;\
+  box-shadow: 0 0 0 6px rgba(212, 106, 126, 0.15);\
+\}\
+\
+.timeline-item:nth-child(odd)::after \{\
+  right: -9px;\
+\}\
+\
+.timeline-item:nth-child(even)::after \{\
+  left: -9px;\
+\}\
+\
+.timeline-content \{\
+  display: inline-block;\
+  background: #ffffff;\
+  border-radius: 20px;\
+  padding: 1.5rem;\
+  max-width: 380px;\
+  box-shadow: 0 15px 35px rgba(122, 36, 56, 0.1);\
+  transition: transform 0.35s ease, box-shadow 0.35s ease;\
+\}\
+\
+.timeline-content:hover \{\
+  transform: translateY(-6px);\
+  box-shadow: 0 20px 45px rgba(122, 36, 56, 0.18);\
+\}\
+\
+.timeline-item:nth-child(odd) .timeline-content \{\
+  margin-left: auto;\
+\}\
+\
+.timeline-item:nth-child(even) .timeline-content \{\
+  margin-right: auto;\
+\}\
+\
+.timeline-image \{\
+  width: 100%;\
+  aspect-ratio: 4 / 3;\
+  border-radius: 14px;\
+  overflow: hidden;\
+  margin-bottom: 1rem;\
+  background: linear-gradient(135deg, #ffe0e6, #fbc7d0);\
+\}\
+\
+.timeline-image img \{\
+  width: 100%;\
+  height: 100%;\
+  object-fit: cover;\
+  display: block;\
+\}\
+\
+.timeline-year \{\
+  display: inline-block;\
+  font-family: 'Montserrat', sans-serif;\
+  font-weight: 700;\
+  font-size: 0.8rem;\
+  letter-spacing: 1.5px;\
+  color: #ffffff;\
+  background: linear-gradient(135deg, #d46a7e, #a83a52);\
+  padding: 0.3rem 0.9rem;\
+  border-radius: 50px;\
+  margin-bottom: 0.7rem;\
+\}\
+\
+.timeline-caption \{\
+  font-family: 'Dancing Script', cursive;\
+  font-size: 1.6rem;\
+  color: #7a2438;\
+  margin-bottom: 0.4rem;\
+\}\
+\
+.timeline-text \{\
+  font-size: 0.9rem;\
+  color: #7d5763;\
+  line-height: 1.5;\
+\}\
+\
+/* ---------- QUOTE SECTION ---------- */\
+\
+.quote-section \{\
+  position: relative;\
+  z-index: 2;\
+  display: flex;\
+  justify-content: center;\
+  padding: 2rem 1.5rem 5rem;\
+\}\
+\
+.quote-card \{\
+  position: relative;\
+  background: linear-gradient(135deg, #ffffff, #fff3f5);\
+  border: 1px solid rgba(212, 106, 126, 0.2);\
+  border-radius: 24px;\
+  padding: 3rem 2.5rem 2.5rem;\
+  max-width: 600px;\
+  width: 100%;\
+  text-align: center;\
+  box-shadow: 0 20px 50px rgba(122, 36, 56, 0.12);\
+\}\
+\
+.quote-mark \{\
+  font-family: 'Great Vibes', cursive;\
+  font-size: 4rem;\
+  color: #d46a7e;\
+  line-height: 0.5;\
+  margin-bottom: 1rem;\
+\}\
+\
+.quote-text \{\
+  font-family: 'Dancing Script', cursive;\
+  font-size: 1.6rem;\
+  color: #5c2a3a;\
+  line-height: 1.5;\
+  margin-bottom: 1rem;\
+  min-height: 3.5rem;\
+  transition: opacity 0.3s ease;\
+\}\
+\
+.quote-author \{\
+  font-size: 0.9rem;\
+  font-weight: 600;\
+  color: #a83a52;\
+  letter-spacing: 0.5px;\
+  margin-bottom: 1.8rem;\
+  transition: opacity 0.3s ease;\
+\}\
+\
+.quote-btn \{\
+  padding: 0.8rem 1.8rem;\
+  border-radius: 50px;\
+  border: none;\
+  outline: none;\
+  cursor: pointer;\
+  font-family: 'Montserrat', sans-serif;\
+  font-weight: 600;\
+  font-size: 0.9rem;\
+  color: #ffffff;\
+  background: linear-gradient(135deg, #d46a7e, #a83a52);\
+  transition: transform 0.25s ease, box-shadow 0.25s ease;\
+\}\
+\
+.quote-btn:hover \{\
+  transform: translateY(-3px);\
+  box-shadow: 0 12px 25px rgba(168, 58, 82, 0.35);\
+\}\
+\
+.quote-btn:active \{\
+  transform: translateY(0);\
+\}\
+\
+/* ---------- FOOTER ---------- */\
+\
+.site-footer \{\
+  position: relative;\
+  z-index: 2;\
+  text-align: center;\
+  padding: 2rem 1.5rem 3rem;\
+  font-family: 'Dancing Script', cursive;\
+  font-size: 1.2rem;\
+  color: #a5677a;\
+\}\
+\
+/* ---------- RESPONSIVE ---------- */\
+\
+@media (max-width: 768px) \{\
+  .hero-title \{\
+    font-size: 3.2rem;\
+  \}\
+\
+  .hero-script \{\
+    font-size: 1.2rem;\
+  \}\
+\
+  .hero-header \{\
+    padding: 4.5rem 1.2rem 3rem;\
+  \}\
+\
+  .section-title \{\
+    font-size: 2.3rem;\
+  \}\
+\
+  .timeline::before \{\
+    left: 24px;\
+  \}\
+\
+  .timeline-item \{\
+    width: 100%;\
+    left: 0 !important;\
+    padding: 0 1.2rem 3rem 3.5rem;\
+    text-align: left !important;\
+  \}\
+\
+  .timeline-item::after \{\
+    left: 15px !important;\
+    right: auto !important;\
+  \}\
+\
+  .timeline-content \{\
+    margin: 0 !important;\
+    max-width: 100%;\
+  \}\
+\
+  .quote-card \{\
+    padding: 2.2rem 1.5rem 2rem;\
+  \}\
+\
+  .quote-text \{\
+    font-size: 1.3rem;\
+  \}\
+\}\
+\
+@media (max-width: 420px) \{\
+  .hero-title \{\
+    font-size: 2.5rem;\
+  \}\
+\
+  .gatekeeper-title \{\
+    font-size: 2.2rem;\
+  \}\
+\
+  .gatekeeper-box \{\
+    padding: 2.2rem 1.5rem;\
+  \}\
+\
+  .timeline-caption \{\
+    font-size: 1.4rem;\
+  \}\
+\}\
+\
+@media (prefers-reduced-motion: reduce) \{\
+  .floating-heart,\
+  .timeline-item,\
+  .gatekeeper-box \{\
+    animation: none !important;\
+    transition: none !important;\
+  \}\
+\}}
